@@ -13,7 +13,7 @@ def printIrr(p, n):
 
 def irrTab(): # Je pense qu'il voulait parler d'un tableau dans le rapport ;-)
 	p = [2,3,5]
-	n = range(11)
+	n = range(1, 11)
 	lignes = list()
 	for i in n :
 		colones = list()
