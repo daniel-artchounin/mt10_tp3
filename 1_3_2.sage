@@ -28,5 +28,4 @@ def test_mobius(n) :
 	diviseurs = Integer(n).divisors()
 	for diviseur in diviseurs :
 		f += FEuler(diviseur) * moebius(n / diviseur)
-		
 	print "Test Moebius pour 100 = " + str(f)

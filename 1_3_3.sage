@@ -9,7 +9,7 @@ def Irr(p, n):
 
 def irr_tab():
 	p	= [2,3,5]
-	n = range(1,10)
+	n = range(1,11)
 	lignes = list()
 	for i in n :
 		colones = list()
