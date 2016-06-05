@@ -5,6 +5,7 @@ load("1_4.sage")
 load("2_1.sage")
 load("2_2.sage")
 load("2_3.sage")
+load("3_1.sage")
 
 ########################## Question 1 ##########################
 print('########################## Question 1 ##########################\n')
@@ -78,3 +79,17 @@ print("Message encodé avec {} erreur(s) de transmission : merr = {}".format(num
 print("Appel de decodeGRS() sur le message encodé avec erreur(s) de transmission...".format(alphas))
 decodedMessage = decodeGRS(q, encodedMessageWithErrors, vs, alphas)
 print("Message décodé : md = {}".format(decodedMessage))
+
+########################## Question 10 ##########################
+print('\n\n########################## Question 10 ##########################\n')
+print("Message numérisé : mn = {}".format(numerisedMessage))
+print("Ordre du corps fini : q = {}".format(q))
+print("Vecteur v = {}".format(vs))
+print("Vecteur alpha = {}".format(alphas))
+print("Message encodé : me = {}".format(encodedMessage))
+print("Appel de syndrome()...")
+syndromeEvaluation = syndrome(q, encodedMessage, vs, alphas, len(numerisedMessage))
+print("S(X) = {}".format(syndromeEvaluation))
+print("Message encodé avec {} erreur(s) de transmission : merr = {}".format(numberOfErrors, encodedMessageWithErrors))
+syndromeEvaluation = syndrome(q, encodedMessageWithErrors, vs, alphas, len(numerisedMessage))
+print("S(X) = {}".format(syndromeEvaluation))

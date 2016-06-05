@@ -10,7 +10,6 @@ def codeGRS(q, word, vs, alphas):
 		if letter < 0 or letter >= q:
 			raise ValueError("The given word is not valid.")
 		f += Integer(word[-(i+1)]) * X^i
-	f(Integer(5))
 	for i, alpha in enumerate(alphas):
 		code.append(vs[i] * f(alpha))
 	return code
