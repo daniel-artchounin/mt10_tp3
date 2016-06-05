@@ -4,6 +4,7 @@ load("1_3_3.sage")
 load("1_4.sage")
 load("2_1.sage")
 load("2_2.sage")
+load("2_3.sage")
 
 ########################## Question 1 ##########################
 print('########################## Question 1 ##########################\n')
@@ -56,3 +57,12 @@ print("Vecteur alpha = {}".format(alphas))
 print("Appel de decodeGRS()...".format(alphas))
 decodedMessage = decodeGRS(q, encodedMessage, vs, alphas)
 print("Message décodé : md = {}".format(decodedMessage))
+
+########################## Question 7 ##########################
+print('\n\n########################## Question 7 ##########################\n')
+numberOfErrors = 3
+print("Message encodé : me = {}".format(encodedMessage))
+print("Ordre du corps fini : q = {}".format(q))
+print("Appel de errTrans() avec {} erreurs de transmissions.".format(numberOfErrors)) 
+encodedMessageWithErrors = errTrans(q, encodedMessage, numberOfErrors)
+print("Message encodé avec erreur de transmissions: merr = {}".format(encodedMessageWithErrors))
