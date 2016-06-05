@@ -2,6 +2,8 @@ load("1_3_1.sage")
 load("1_3_2.sage")
 load("1_3_3.sage")
 load("1_4.sage")
+load("2_1.sage")
+load("2_2.sage")
 
 ########################## Question 1 ##########################
 print('########################## Question 1 ##########################\n')
@@ -30,3 +32,27 @@ print(irrTab())
 print('\n\n########################## Question 4 ##########################\n')
 maxDegree = 10
 printF2XIrreductiblePolynomials(maxDegree)
+
+########################## Question 5 ##########################
+print('\n\n########################## Question 5 ##########################\n')
+numerisedMessage = [1, 5, 7, 10, 3, 5, 2]
+vs = [2, 10, 4, 1, 6, 5, 8, 7, 9, 3]
+alphas = [11, 17, 13, 20, 15, 16, 12, 18, 19, 14]
+q = 11
+print("Message numérisé : mn = {}".format(numerisedMessage))
+print("Ordre du corps fini : q = {}".format(q))
+print("Vecteur v = {}".format(vs))
+print("Vecteur alpha = {}".format(alphas))
+print("Appel de codeGRS()...".format(alphas))
+encodedMessage = codeGRS(q, numerisedMessage, vs, alphas)
+print("Message encodé : me = {}".format(encodedMessage))
+
+########################## Question 6 ##########################
+print('\n\n########################## Question 6 ##########################\n')
+print("Message encodé : me = {}".format(encodedMessage))
+print("Ordre du corps fini : q = {}".format(q))
+print("Vecteur v = {}".format(vs))
+print("Vecteur alpha = {}".format(alphas))
+print("Appel de decodeGRS()...".format(alphas))
+decodedMessage = decodeGRS(q, encodedMessage, vs, alphas)
+print("Message décodé : md = {}".format(decodedMessage))
