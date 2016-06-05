@@ -4,8 +4,6 @@ def test_moebius(n):
 			return false
 	return true
 
-print test_moebius(100)
-
 def test_euler(n):
 	if moebius(1) != 1:
 		return false
@@ -17,8 +15,6 @@ def test_euler(n):
 		if res != 0:
 			return false
 	return true
-print test_euler(10)
-
 
 def FEuler(n) :
 	diviseurs = Integer(n).divisors()
@@ -27,13 +23,10 @@ def FEuler(n) :
 		f += euler_phi(diviseur)
 	return f
 
-def test_moebius(n) :
+def test_mobius(n) :
 	f = 0
 	diviseurs = Integer(n).divisors()
 	for diviseur in diviseurs :
-		print diviseur
-		print FEuler(diviseur)
 		f += FEuler(diviseur) * moebius(n / diviseur)
 		
 	print "Test Moebius pour 100 = " + str(f)
-test_moebius(100)
