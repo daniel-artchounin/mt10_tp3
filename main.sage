@@ -7,6 +7,7 @@ load("2_2.sage")
 load("2_3.sage")
 load("3_1.sage")
 load("3_3.sage")
+load("3_4.sage")
 
 
 ########################## Question 1 ##########################
@@ -42,7 +43,7 @@ print('\n\n########################## Question 5 ##########################\n')
 numerisedMessage = [1, 5, 7, 10, 3, 5, 2]
 vs = [2, 10, 4, 1, 6, 5, 8, 7, 9, 3]
 alphas = [11, 17, 13, 20, 15, 16, 12, 18, 19, 14]
-q = 11
+q = 23
 print("Message numérisé : mn = {}".format(numerisedMessage))
 print("Ordre du corps fini : q = {}".format(q))
 print("Vecteur v = {}".format(vs))
@@ -63,7 +64,7 @@ print("Message décodé : md = {}".format(decodedMessage))
 
 ########################## Question 7 ##########################
 print('\n\n########################## Question 7 ##########################\n')
-numberOfErrors = 3
+numberOfErrors = 1
 print("Message encodé : me = {}".format(encodedMessage))
 print("Ordre du corps fini : q = {}".format(q))
 print("Appel de errTrans() avec {} erreurs de transmission.".format(numberOfErrors)) 
@@ -107,3 +108,11 @@ print(sigma)
 print(omega)
 print('(sigma * FqX(syndromePolynomial)) % X^r = {}'.format((sigma * FqX(syndromePolynomial)) % X^r))
 print('omega %  X^r = {}'.format(omega %  X^r))
+
+########################## Question 12 ##########################
+print('\n\n########################## Question 12 ##########################\n')
+print("Message encodé : me = {}".format(encodedMessage))
+print("Message encodé avec {} erreur(s) de transmission : merr = {}".format(numberOfErrors, encodedMessageWithErrors))
+error = erreur(q, sigma, omega, vs, alphas)
+print("Erreur : e = {}".format(error))
+print("Correction de l'erreur, puis obtention du message encodé : merr-me = {}".format(computeDifferenceBetweenTwoLists(encodedMessageWithErrors, error)))
