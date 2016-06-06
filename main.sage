@@ -6,6 +6,8 @@ load("2_1.sage")
 load("2_2.sage")
 load("2_3.sage")
 load("3_1.sage")
+load("3_3.sage")
+
 
 ########################## Question 1 ##########################
 print('########################## Question 1 ##########################\n')
@@ -88,8 +90,20 @@ print("Vecteur v = {}".format(vs))
 print("Vecteur alpha = {}".format(alphas))
 print("Message encodé : me = {}".format(encodedMessage))
 print("Appel de syndrome()...")
-syndromeEvaluation = syndrome(q, encodedMessage, vs, alphas, len(numerisedMessage))
-print("S(X) = {}".format(syndromeEvaluation))
+syndromePolynomial = syndrome(q, encodedMessage, vs, alphas, len(numerisedMessage))
+print("S(X) = {}".format(syndromePolynomial))
 print("Message encodé avec {} erreur(s) de transmission : merr = {}".format(numberOfErrors, encodedMessageWithErrors))
-syndromeEvaluation = syndrome(q, encodedMessageWithErrors, vs, alphas, len(numerisedMessage))
-print("S(X) = {}".format(syndromeEvaluation))
+syndromePolynomial = syndrome(q, encodedMessageWithErrors, vs, alphas, len(numerisedMessage))
+print("S(X) = {}".format(syndromePolynomial))
+
+########################## Question 11 ##########################
+print('\n\n########################## Question 11 ##########################\n')
+sigma, omega = clef(q, syndromePolynomial, len(numerisedMessage), len(vs))
+FqX.<X> = GF(q, name='a')['X']
+r = len(vs) - len(numerisedMessage)
+print('S(X) = {}'.format(syndromePolynomial))
+print('Appel de clef()...')
+print(sigma)
+print(omega)
+print('(sigma * FqX(syndromePolynomial)) % X^r = {}'.format((sigma * FqX(syndromePolynomial)) % X^r))
+print('omega %  X^r = {}'.format(omega %  X^r))
