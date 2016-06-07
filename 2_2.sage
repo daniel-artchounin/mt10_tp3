@@ -18,9 +18,9 @@ def decodeGRS(q, code, vs, alphas):
 	if not Integer(q).is_prime_power():
 		raise ValueError("The order of a finite field must be a prime power.")
 	FqX.<X>=GF(q, name='a')['X'] # It represents the polynomials in Fq[X]
-	decodedPolynomial = FqX.zero() 
+	decodedPolynomial = FqX.zero()
 	for i, alpha in enumerate(alphas):
-		lPolynomial = lagrangePolynomial(q, alphas, i)
+		lPolynomial = lagrangePolynomial(q, alphas, i)		
 		decodedPolynomial += code[i] * (vs[i] * lPolynomial(alpha))^-1 *  lPolynomial
 	originalWord = decodedPolynomial.list()
 	originalWord.reverse()

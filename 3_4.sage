@@ -19,13 +19,14 @@ def erreur(q, sigma, omega, vs, alphas):
 		sigmasDerivativeB = FqX.one()
 		for bPrimeIndex in bIndices:
 			if bPrimeIndex != bIndex:
-				sigmasDerivativeB *= FqX.one() - (Fqx(alphas[bPrimeIndex]) * FqX(alphas[bIndex])^(-1))
+				sigmasDerivativeB *= FqX.one() - (FqX(alphas[bPrimeIndex]) * FqX(alphas[bIndex])^(-1))
 		sigmasDerivative[bIndex] = minusAlphaB * sigmasDerivativeB 
 	errors = [Integer(0)] * n
 	for bIndex in bIndices:
 		lagrangePolynom = lagrangePolynomial(q, alphas, bIndex)
 		uB = (FqX(vs[bIndex]))^(-1) * lagrangePolynom(alphas[bIndex])^(-1)
 		errors[bIndex] = (-FqX(alphas[bIndex])) * omega( (FqX(alphas[bIndex]))^(-1) ) * (uB * sigmasDerivative[bIndex] )^(-1)
+		errors[bIndex] = FqX(errors[bIndex])
 	return errors
 
 def computeDifferenceBetweenTwoLists(l1, l2):

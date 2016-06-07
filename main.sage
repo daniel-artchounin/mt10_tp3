@@ -8,6 +8,9 @@ load("2_3.sage")
 load("3_1.sage")
 load("3_3.sage")
 load("3_4.sage")
+load("rsa_library.sage")
+
+import random
 
 
 ########################## Question 1 ##########################
@@ -101,13 +104,13 @@ print("S(X) = {}".format(syndromePolynomial))
 print('\n\n########################## Question 11 ##########################\n')
 sigma, omega = clef(q, syndromePolynomial, len(numerisedMessage), len(vs))
 FqX.<X> = GF(q, name='a')['X']
-r = len(vs) - len(numerisedMessage)
+rDiff = len(vs) - len(numerisedMessage)
 print('S(X) = {}'.format(syndromePolynomial))
 print('Appel de clef()...')
 print(sigma)
 print(omega)
-print('(sigma * FqX(syndromePolynomial)) % X^r = {}'.format((sigma * FqX(syndromePolynomial)) % X^r))
-print('omega %  X^r = {}'.format(omega %  X^r))
+print('(sigma * FqX(syndromePolynomial)) % X^r = {}'.format((sigma * FqX(syndromePolynomial)) % X^rDiff))
+print('omega %  X^r = {}'.format(omega %  X^rDiff))
 
 ########################## Question 12 ##########################
 print('\n\n########################## Question 12 ##########################\n')
@@ -115,4 +118,71 @@ print("Message encodé : me = {}".format(encodedMessage))
 print("Message encodé avec {} erreur(s) de transmission : merr = {}".format(numberOfErrors, encodedMessageWithErrors))
 error = erreur(q, sigma, omega, vs, alphas)
 print("Erreur : e = {}".format(error))
-print("Correction de l'erreur, puis obtention du message encodé : merr-me = {}".format(computeDifferenceBetweenTwoLists(encodedMessageWithErrors, error)))
+correction = computeDifferenceBetweenTwoLists(encodedMessageWithErrors, error)
+print("Correction de l'erreur, puis obtention du message initialement encodé : merr-me = {}".format(correction))
+decodedMessage = decodeGRS(q, correction, vs, alphas)
+print("Message décodé : md = {}".format(decodedMessage))
+
+########################## Question 13 ##########################
+print('\n\n########################## Question 13 ##########################\n')
+cle_alice = 35, 17, 17
+cle_bob = 55, 21, 21
+nc = 8
+
+m1 = "Rendez-vous demain vers 14 heures"
+print("m1 = '{}'\n".format(m1))
+
+print("na = {}".format(cle_alice[0]))
+print("nb = {}".format(cle_bob[0]))
+print("nc = {}\n".format(nc))
+
+m3C = protocole2Encrypting("Rendez-vous demain vers 14 heures", cle_alice[0], cle_alice[2], cle_bob[0], cle_bob[1], nc)
+if cle_alice[0] > cle_bob[0]:
+	print("Alice chiffre une première fois le message avec la clé publique de Bob...")
+	print("Alice chiffre une deuxième fois le message déjà chiffré (une fois) avec sa clé privée...")
+else:
+	print("Alice chiffre une première fois le message avec sa clé privée...")
+	print("Alice chiffre une deuxième fois le message déjà chiffré (une fois) avec la clé publique de Bob...")
+
+print("m3C = {}\n".format(m3C))
+
+q = 307
+k = len(m3C)
+n = 2*k
+
+d = n - k + 1 
+vs = random.sample(range(3, q), n)
+alphas = random.sample(range(3, q), n)
+numberOfErrors = 3
+
+encodedMessage = codeGRS(q, m3C, vs, alphas)
+print("Ordre du corps fini : q = {}".format(q))
+print("Vecteur v = {}".format(vs))
+print("Vecteur alpha = {}".format(alphas))
+print("Message encodé : me = {}".format(encodedMessage))
+
+print("Le message doublement crypté, puis, encodé (me) est envoyé à Bob...")
+
+print("Appel de errTrans() avec {} erreurs de transmission.".format(numberOfErrors)) 
+encodedMessageWithErrors = errTrans(q, encodedMessage, numberOfErrors)
+print("Message encodé avec {} erreur(s) de transmission : merr = {}".format(numberOfErrors, encodedMessageWithErrors))
+print("Appel de syndrome()...")
+syndromePolynomial = syndrome(q, encodedMessageWithErrors, vs, alphas, k)
+print("Appel de clef()...")
+sigma, omega = clef(q, syndromePolynomial, k, len(vs))
+print("Appel de erreur()...")
+error = erreur(q, sigma, omega, vs, alphas)
+print("Erreur : e = {}".format(error))
+correction = computeDifferenceBetweenTwoLists(encodedMessageWithErrors, error)
+print("Correction de l'erreur, puis, obtention du message initialement encodé : merr-me = {}".format(correction))
+decodedMessage = decodeGRS(q, correction, vs, alphas)
+print("Message décodé : md = {}".format(decodedMessage))
+
+m1 = protocole2Decrypting(m3C, cle_alice[0], cle_alice[1], cle_bob[0], cle_bob[2], nc)
+if cle_alice[0] > cle_bob[0]:
+	print("Bob déchiffre une première fois le message chiffré avec la clé publique d'Alice...")
+	print("Bob déchiffre une deuxième fois le message déjà déchiffré (une fois) avec sa clé privée...")
+else:
+	print("Bob déchiffre une première fois le message chiffré avec sa clé privée...")
+	print("Bob déchiffre une deuxième fois le message déjà déchiffré (une fois) avec la clé publique d'Alice...")
+print("m1 = '{}'".format(m1))

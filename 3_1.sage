@@ -14,5 +14,5 @@ def syndrome(q, doubtfulWord, vs, alphas, k):
 		for j in range(1, r):
 			term += (FqX(alphas[i]) * X)^j
 		lagrangePolyn = lagrangePolynomial(q, alphas, i)
-		syndromePolynomial += FqX(doubtfulWord[i]) * (FqX(vs[i])^(-1) * lagrangePolyn(alphas[i])^(-1)) * term 
+		syndromePolynomial += FqX(doubtfulWord[i]) * (FqX(vs[i])^(-1) * (lagrangePolyn(FqX(alphas[i])))^(-1)) * term 
 	return syndromePolynomial
