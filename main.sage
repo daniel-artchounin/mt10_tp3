@@ -34,7 +34,6 @@ print('moebiusInversionFormulaTest({}) = {} (utilisation de la formule d\'invers
 print('\n\n########################## Question 3 ##########################\n')
 print('Tableau Irrp(n) pour p=2,3,5 et n = 1,...,10')
 printIrr([2,3,5], range(1, 11))
-print(irrTab())
 
 ########################## Question 4 ##########################
 print('\n\n########################## Question 4 ##########################\n')
