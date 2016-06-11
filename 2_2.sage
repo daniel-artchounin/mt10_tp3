@@ -8,7 +8,7 @@ def lagrangePolynomial(q, alphas, i):
 		raise ValueError("Our implementation only works when the order 'q' of " +
 			"the finite field is prime.")	
 	FqX.<X> = GF(q,name='a')['X'] # It represents the polynomials in Fq[X]
-	lPolynomial = FqX.one() # it will contain the lagrange polynomial
+	lPolynomial = FqX.one() # It will contain the lagrange polynomial
 	for j in range(n):
 		if j != i:
 			lPolynomial *= (X - alphas[j])  

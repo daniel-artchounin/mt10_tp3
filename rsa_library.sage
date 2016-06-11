@@ -5,12 +5,10 @@ def numerise(message, N):
 	"""Encoding of a message."""
 	S3 = BinaryStrings()
 	binaryMessage = S3.encoding(message)
-	# print(binaryMessage) # Test
 	packetLength = floor(ln(N)/ln(2)) # Computation of the logarithm base 2
 	binaryMessageLength = len(binaryMessage)
 	numberOfSameLengthPackets = binaryMessageLength//packetLength
 	lengthOfTheLastPacket = binaryMessageLength%packetLength
-	# print(lengthOfTheLastPacket) # Test
 	digitization = []
 	for i in range(numberOfSameLengthPackets):
 		packet = str(binaryMessage[i*packetLength:i*packetLength+packetLength])
@@ -41,8 +39,6 @@ def alphabetise(integersList, N):
 		binaryMessage += bin
 	if lengthOfTheLastPacket != 0:
 		bin = str(Integer(integersList[numberOfSameLengthPackets]).binary())	
-		# print(lengthOfTheLastPacket) # Test
-		# print(len(bin)) # Test
 		while len(bin) != lengthOfTheLastPacket:
 			bin = "0" + str(bin)
 		binaryMessage += bin
